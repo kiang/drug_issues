@@ -3,7 +3,7 @@
     <head>
         <?php echo $this->Html->charset(); ?>
         <title>
-            Drug Issues::
+            藥物外觀異動通報::
             <?php echo $title_for_layout; ?>
         </title><?php
         echo $this->Html->meta('icon');
@@ -20,19 +20,18 @@
     <body>
         <div class="container">
             <div id="header">
-                <h1><?php echo $this->Html->link('Drug Issues', '/'); ?></h1>
+                <h1><?php echo $this->Html->link('藥物外觀異動通報', '/'); ?></h1>
             </div>
             <div id="content">
                 <div class="btn-group">
                     <?php if ($this->Session->read('Auth.User.id')): ?>
-                        <?php echo $this->Html->link('許可證', '/admin/licenses', array('class' => 'btn btn-default')); ?>
-                        <?php echo $this->Html->link('回報表單', '/admin/issues', array('class' => 'btn btn-default')); ?>
-                        <?php echo $this->Html->link('異動記錄', '/admin/issue_logs', array('class' => 'btn btn-default')); ?>
-                        <?php echo $this->Html->link('Members', '/admin/members', array('class' => 'btn btn-default')); ?>
-                        <?php echo $this->Html->link('Groups', '/admin/groups', array('class' => 'btn btn-default')); ?>
-                        <?php echo $this->Html->link('Logout', '/members/logout', array('class' => 'btn btn-default')); ?>
+                        <?php echo $this->Html->link('通報資料', '/admin/issues', array('class' => 'btn btn-default')); ?>
+                        <?php echo $this->Html->link('建立通報', '/admin/issues/add', array('class' => 'btn btn-default')); ?>
+                        <?php echo $this->Html->link('帳號', '/admin/members', array('class' => 'btn btn-default')); ?>
+                        <?php echo $this->Html->link('群組', '/admin/groups', array('class' => 'btn btn-default')); ?>
+                        <?php echo $this->Html->link('登出', '/members/logout', array('class' => 'btn btn-default')); ?>
                     <?php else: ?>
-                        <?php echo $this->Html->link('Login', '/members/login', array('class' => 'btn btn-default')); ?>
+                        <?php echo $this->Html->link('登入', '/members/login', array('class' => 'btn btn-default')); ?>
                     <?php endif; ?>
                     <?php
                     if (!empty($actions_for_layout)) {
@@ -54,7 +53,7 @@
                         ), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false)
                 );
                 ?>
-                & <?php echo $this->Html->link('Just This Computer Studio', 'http://olc.tw/', array('target' => '_blank')); ?>
+                & <?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
             </div>
         </div>
         <?php

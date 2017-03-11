@@ -8,12 +8,20 @@ class Issue extends AppModel {
     public $uploadFields = array(
         'pic_old', 'pic_new', 'label_old_file', 'label_new_file', 'evidence'
     );
+    public $belongsTo = array(
+        'Member' => array(
+            'foreignKey' => 'modified_by',
+            'dependent' => false,
+            'className' => 'Member',
+        ),
+    );
     public $hasMany = array(
         'IssueLog' => array(
             'foreignKey' => 'issue_id',
             'dependent' => true,
             'className' => 'IssueLog',
-    ));
+        ),
+    );
     public $loginMember;
 
     public function beforeSave($options = array()) {
@@ -40,7 +48,7 @@ class Issue extends AppModel {
                 }
             }
         }
-        $this->data['Issue']['modified_by'] = $this->loginMember['id'];
+        $this->data['Issue']['modified_by'] = Configure::read('loginMember.id');
         return parent::beforeSave($options);
     }
 
@@ -48,7 +56,7 @@ class Issue extends AppModel {
         if (isset($this->data['IssueLog'])) {
             $this->data['IssueLog']['issue_id'] = $this->id;
             $this->data['IssueLog']['status'] = $this->data['Issue']['status'];
-            $this->data['IssueLog']['created_by'] = $this->loginMember['id'];
+            $this->data['IssueLog']['created_by'] = Configure::read('loginMember.id');
             $this->IssueLog->create();
             $this->IssueLog->save($this->data);
         }

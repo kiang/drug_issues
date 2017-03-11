@@ -31,7 +31,30 @@ class IssuesController extends AppController {
     }
 
     function admin_view($id = null) {
-        if (!$id || !$this->data = $this->Issue->read(null, $id)) {
+        if (!empty($this->data)) {
+            $theData = $this->data;
+            $theData['IssueLog']['issue_id'] = $id;
+            $theData['IssueLog']['created_by'] = Configure::read('loginMember.id');
+            $this->Issue->IssueLog->create();
+            if ($this->Issue->IssueLog->save($theData)) {
+                $this->Issue->id = $id;
+                $this->Issue->save(array('Issue' => array(
+                        'status' => $theData['IssueLog']['status'],
+                        'modified_by' => $theData['IssueLog']['created_by'],
+                )));
+                $this->Session->setFlash(__('The data has been saved', true));
+            } else {
+                $this->Session->setFlash(__('Something was wrong during saving, please try again', true));
+            }
+        }
+        if (!$id || !$this->data = $this->Issue->find('first', array(
+            'conditions' => array('Issue.id' => $id),
+            'contain' => array(
+                'IssueLog' => array(
+                    'order' => array('IssueLog.created' => 'DESC'),
+                    'Member'
+                ), 'Member'),
+                ))) {
             $this->Session->setFlash(__('Please do following links in the page', true));
             $this->redirect(array('action' => 'index'));
         }

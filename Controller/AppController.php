@@ -23,6 +23,17 @@ class AppController extends Controller {
                 )
             );
         }
+        $this->loginMember = $this->Session->read('Auth.User');
+        if (empty($this->loginMember)) {
+            $this->loginMember = array(
+                'id' => 0,
+                'group_id' => 0,
+                'username' => '',
+            );
+        } elseif ($this->loginMember['group_id'] == '1') {
+            Configure::write('debug', 2);
+        }
+        Configure::write('loginMember', $this->loginMember);
     }
 
 }

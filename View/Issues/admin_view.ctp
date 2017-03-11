@@ -82,18 +82,12 @@
         </div>
         <div class="col-md-3"><strong>舊外觀(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['pic_old']) {
-
-                echo $this->data['Issue']['pic_old'];
-            }
+            echo $this->Olc->imgLink($this->data['Issue']['pic_old']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>新外觀(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['pic_new']) {
-
-                echo $this->data['Issue']['pic_new'];
-            }
+            echo $this->Olc->imgLink($this->data['Issue']['pic_new']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>舊仿單(KEY IN)</strong></div>
@@ -106,10 +100,7 @@
         </div>
         <div class="col-md-3"><strong>舊仿單(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['label_old_file']) {
-
-                echo $this->data['Issue']['label_old_file'];
-            }
+            echo $this->Olc->imgLink($this->data['Issue']['label_old_file']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>新仿單(KEY IN)</strong></div>
@@ -122,33 +113,22 @@
         </div>
         <div class="col-md-3"><strong>新仿單(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['label_new_file']) {
-
-                echo $this->data['Issue']['label_new_file'];
-            }
+            echo $this->Olc->imgLink($this->data['Issue']['label_new_file']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>異動證明(公文/廠商說明書等)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['evidence']) {
-
-                echo $this->data['Issue']['evidence'];
-            }
+            echo $this->Olc->imgLink($this->data['Issue']['evidence']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>更新時間</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['modified']) {
-
-                echo $this->data['Issue']['modified'];
-            }
+            echo $this->data['Issue']['modified'];
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>更新者</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Member']['username']) {
-                echo $this->data['Member']['username'];
-            }
+            echo $this->data['Member']['username'];
             ?>&nbsp;
         </div>
     </div>

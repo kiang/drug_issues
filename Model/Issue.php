@@ -39,8 +39,16 @@ class Issue extends AppModel {
                         $targetId = CakeText::uuid();
                         $path_parts = pathinfo($this->data['Issue'][$field]['name']);
                         $targetFile = $targetId . '.' . strtolower($path_parts['extension']);
-                        if (move_uploaded_file($this->data['Issue'][$field]['tmp_name'], $basePath . $field . '/' . $targetFile)) {
+                        $origFile = $basePath . $field . '/' . $targetFile;
+                        if (move_uploaded_file($this->data['Issue'][$field]['tmp_name'], $origFile)) {
                             $this->data['Issue'][$field] = $targetFile;
+                            $mime = mime_content_type($basePath . $field . '/' . $targetFile);
+                            $targetFile = $basePath . $field . '/' . $targetId . '_s.jpg';
+                            if (false !== strpos($mime, 'pdf')) {
+                                exec("/usr/bin/convert -resize 512x512 {$origFile}[0] {$targetFile}");
+                            } else {
+                                exec("/usr/bin/convert -resize 512x512 {$origFile} {$targetFile}");
+                            }
                         } else {
                             unset($this->data['Issue'][$field]);
                         }

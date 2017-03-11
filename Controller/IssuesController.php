@@ -24,7 +24,8 @@ class IssuesController extends AppController {
 
     function admin_index() {
         $this->paginate['Issue'] = array(
-            'limit' => 20,
+            'limit' => 24,
+            'order' => array('Issue.modified' => 'DESC'),
         );
         $this->set('items', $this->paginate($this->Issue));
     }

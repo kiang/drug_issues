@@ -122,3 +122,26 @@
     echo $this->Form->end();
     ?>
 </div>
+<script>
+    $(function () {
+        $('#IssueLicense').autocomplete({
+            minLength: 1,
+            source: function (request, response) {
+                $.getJSON('http://drugs.olc.tw/api/drugs/index/' + encodeURI(request.term), function (r) {
+                    response($.map(r.data, function(item) {
+                        return {
+                            label: item.License.license_id + ' - ' + item.License.name + ' / ' + item.License.name_english,
+                            value: item.License.license_id,
+                            data: item
+                        }
+                    }));
+                });
+            },
+            select: function(event, ui) {
+                $('#IssueNameEnglish').val(ui.item.data.License.name_english);
+                $('#IssueNameChinese').val(ui.item.data.License.name);
+                $('#IssueLicenseUuid').val(ui.item.data.License.id);
+            }
+        });
+    })
+</script>

@@ -1,25 +1,18 @@
 <div id="IssuesAdminView">
     <h3>通報資料</h3><hr />
     <div class="col-md-12">
-        <div class="col-md-3"><strong>許可證</strong></div>
+        <div class="col-md-3"><strong>許可證字號</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['license_id']) {
-                echo $this->data['Issue']['license_id'];
-            }
-            ?>&nbsp;
-        </div>
-        <div class="col-md-3"><strong>外部許可證</strong></div>
-        <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['license_uuid']) {
-
-                echo $this->data['Issue']['license_uuid'];
+            if (!empty($this->data['Issue']['license_uuid'])) {
+                echo $this->Html->link($this->data['Issue']['license'], 'http://drugs.olc.tw/licenses/view/' . $this->data['Issue']['license_uuid'], array('target' => '_blank'));
+            } else {
+                echo $this->data['Issue']['license'];
             }
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>編輯者</strong></div>
         <div class="col-md-9">&nbsp;<?php
             if ($this->data['Issue']['info_source']) {
-
                 echo $this->data['Issue']['info_source'];
             }
             ?>&nbsp;
@@ -45,14 +38,6 @@
             if ($this->data['Issue']['name_chinese']) {
 
                 echo $this->data['Issue']['name_chinese'];
-            }
-            ?>&nbsp;
-        </div>
-        <div class="col-md-3"><strong>許可證字號</strong></div>
-        <div class="col-md-9">&nbsp;<?php
-            if ($this->data['Issue']['license']) {
-
-                echo $this->data['Issue']['license'];
             }
             ?>&nbsp;
         </div>
@@ -182,7 +167,7 @@
                     <td><?php echo $log['Member']['username']; ?></td>
                     <td><?php echo nl2br($log['comment']); ?></td>
                 </tr><?php
-            }
+        }
             ?>
         </tbody>
     </table>

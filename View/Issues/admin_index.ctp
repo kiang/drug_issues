@@ -26,7 +26,7 @@ if (!isset($url)) {
                 }
                 ?></p>
             <?php
-            echo $this->Olc->imgLink($item['Issue']['pic_new']);
+            echo $this->Olc->imgLink('pic_new', $item['Issue']['pic_new']);
             ?>    
         </div>
         <?php

@@ -67,12 +67,12 @@
         </div>
         <div class="col-md-3"><strong>舊外觀(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            echo $this->Olc->imgLink($this->data['Issue']['pic_old']);
+            echo $this->Olc->imgLink('pic_old', $this->data['Issue']['pic_old']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>新外觀(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            echo $this->Olc->imgLink($this->data['Issue']['pic_new']);
+            echo $this->Olc->imgLink('pic_new', $this->data['Issue']['pic_new']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>舊仿單(KEY IN)</strong></div>
@@ -85,7 +85,7 @@
         </div>
         <div class="col-md-3"><strong>舊仿單(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            echo $this->Olc->imgLink($this->data['Issue']['label_old_file']);
+            echo $this->Olc->imgLink('label_old_file', $this->data['Issue']['label_old_file']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>新仿單(KEY IN)</strong></div>
@@ -98,12 +98,12 @@
         </div>
         <div class="col-md-3"><strong>新仿單(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            echo $this->Olc->imgLink($this->data['Issue']['label_new_file']);
+            echo $this->Olc->imgLink('label_new_file', $this->data['Issue']['label_new_file']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>異動證明(公文/廠商說明書等)</strong></div>
         <div class="col-md-9">&nbsp;<?php
-            echo $this->Olc->imgLink($this->data['Issue']['evidence']);
+            echo $this->Olc->imgLink('evidence', $this->data['Issue']['evidence']);
             ?>&nbsp;
         </div>
         <div class="col-md-3"><strong>更新時間</strong></div>

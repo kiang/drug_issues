@@ -6,7 +6,27 @@ class Issue extends AppModel {
 
     public $name = 'Issue';
     public $uploadFields = array(
-        'pic_old', 'pic_new', 'label_old_file', 'label_new_file', 'evidence'
+        'pic_old', 'pic_new', 'evidence'
+    );
+    public $validate = array(
+        'license' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                'on' => 'create',
+            ),
+        ),
+        'name_chinese' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                'on' => 'create',
+            ),
+        ),
+        'batch_no' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                'on' => 'create',
+            ),
+        ),
     );
     public $belongsTo = array(
         'Member' => array(

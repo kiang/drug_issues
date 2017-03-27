@@ -144,11 +144,8 @@ CREATE TABLE `issues` (
   `batch_no` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pic_old` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pic_new` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_old` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_old_file` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_new` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_new_file` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `evidence` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `evidence_date` date DEFAULT NULL,
   `modified` datetime NOT NULL,
   `modified_by` int(11) NOT NULL,
   PRIMARY KEY (`id`)

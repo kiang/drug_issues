@@ -10,6 +10,7 @@
             'label' => '許可證字號',
             'div' => 'form-group',
             'class' => 'form-control',
+            'required' => 'required',
         ));
         echo $this->Form->input('Issue.info_source', array(
             'type' => 'radio',
@@ -34,72 +35,55 @@
             'legend' => '分類',
             'div' => 'form-group',
         ));
-        echo $this->Form->input('Issue.name_english', array(
-            'label' => '藥品英文名',
-            'div' => 'form-group',
-            'class' => 'form-control',
-        ));
         echo $this->Form->input('Issue.name_chinese', array(
             'label' => '藥品中文名',
             'div' => 'form-group',
             'class' => 'form-control',
+            'required' => 'required',
         ));
-        echo $this->Form->input('Issue.dosage_form', array(
-            'label' => '劑型',
-            'div' => 'form-group col-md-6',
-            'class' => 'form-control',
-        ));
-        echo $this->Form->input('Issue.dosage', array(
-            'label' => '含量（規格/劑量）',
-            'div' => 'form-group col-md-6',
+        echo $this->Form->input('Issue.name_english', array(
+            'label' => '藥品英文名',
+            'div' => 'form-group',
             'class' => 'form-control',
         ));
         echo $this->Form->input('Issue.batch_no', array(
             'label' => '批號（新變更的批號）',
             'div' => 'form-group',
             'class' => 'form-control',
-        ));
-        echo $this->Form->input('Issue.pic_old', array(
-            'type' => 'file',
-            'label' => '舊外觀(上傳資料)',
-            'div' => 'form-group col-md-6',
-            'class' => 'form-control',
+            'required' => 'required',
         ));
         echo $this->Form->input('Issue.pic_new', array(
             'type' => 'file',
             'label' => '新外觀(上傳資料)',
-            'div' => 'form-group col-md-6',
-            'class' => 'form-control',
-        ));
-        echo $this->Form->input('Issue.label_old', array(
-            'type' => 'textarea',
-            'rows' => 3,
-            'label' => '舊仿單(KEY IN)',
             'div' => 'form-group',
             'class' => 'form-control',
+            'required' => 'required',
         ));
-        echo $this->Form->input('Issue.label_old_file', array(
+        echo $this->Form->input('Issue.pic_old', array(
             'type' => 'file',
-            'label' => '舊仿單(上傳資料)',
+            'label' => '舊外觀(上傳資料)',
             'div' => 'form-group',
             'class' => 'form-control',
         ));
-        echo $this->Form->input('Issue.label_new', array(
-            'type' => 'textarea',
-            'rows' => 3,
-            'label' => '新仿單(KEY IN)',
+        echo $this->Form->input('Issue.dosage_form', array(
+            'label' => '劑型',
             'div' => 'form-group',
             'class' => 'form-control',
         ));
-        echo $this->Form->input('Issue.label_new_file', array(
-            'type' => 'file',
-            'label' => '新仿單(上傳資料)',
+        echo $this->Form->input('Issue.dosage', array(
+            'label' => '含量（規格/劑量）',
             'div' => 'form-group',
             'class' => 'form-control',
         ));
         echo $this->Form->input('Issue.evidence', array(
             'type' => 'file',
             'label' => '異動證明(公文/廠商說明書等)',
+            'div' => 'form-group',
+            'class' => 'form-control',
+        ));
+        echo $this->Form->input('Issue.evidence_date', array(
+            'type' => 'text',
+            'label' => '異動證明日期',
             'div' => 'form-group',
             'class' => 'form-control',
         ));
@@ -142,6 +126,9 @@
                 $('#IssueNameChinese').val(ui.item.data.License.name);
                 $('#IssueLicenseUuid').val(ui.item.data.License.id);
             }
+        });
+        $('#IssueEvidenceDate').datepicker({
+            dateFormat: 'yy-mm-dd'
         });
     })
 </script>

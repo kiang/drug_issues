@@ -1,6 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
+App::uses('Sanitize', 'Utility');
 
 class IssuesController extends AppController {
 
@@ -22,12 +23,30 @@ class IssuesController extends AppController {
         }
     }
 
-    function admin_index() {
+    function admin_index($name = null) {
+        $scope = $keywords = array();
+        if (!empty($name)) {
+            $name = Sanitize::clean($name);
+            $keywords = explode(' ', $name);
+            $keywordCount = 0;
+            foreach ($keywords AS $k => $keyword) {
+                if (++$keywordCount < 5) {
+                    $scope[]['OR'] = array(
+                        'Issue.license LIKE' => "%{$keyword}%",
+                        'Issue.name_english LIKE' => "%{$keyword}%",
+                        'Issue.name_chinese LIKE' => "%{$keyword}%",
+                    );
+                } else {
+                    unset($keywords[$k]);
+                }
+            }
+        }
         $this->paginate['Issue'] = array(
             'limit' => 24,
             'order' => array('Issue.modified' => 'DESC'),
         );
-        $this->set('items', $this->paginate($this->Issue));
+        $this->set('items', $this->paginate($this->Issue, $scope));
+        $this->set('keywords', implode(' ', $keywords));
     }
 
     function admin_view($id = null) {

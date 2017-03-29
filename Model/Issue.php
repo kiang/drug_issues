@@ -10,20 +10,20 @@ class Issue extends AppModel {
     );
     public $validate = array(
         'license' => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
+            'notBlank' => array(
+                'rule' => array('notBlank'),
                 'on' => 'create',
             ),
         ),
         'name_chinese' => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
+            'notBlank' => array(
+                'rule' => array('notBlank'),
                 'on' => 'create',
             ),
         ),
         'batch_no' => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
+            'notBlank' => array(
+                'rule' => array('notBlank'),
                 'on' => 'create',
             ),
         ),

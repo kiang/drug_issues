@@ -24,7 +24,7 @@ class MembersController extends AppController {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirect());
             } else {
-                $this->Session->setFlash(__('Username or password is wrong', true));
+                $this->Session->setFlash('帳號或密碼有誤');
             }
         }
     }
@@ -35,16 +35,35 @@ class MembersController extends AppController {
     }
 
     public function setup() {
+        /*
+         * to empty the tables
+         * 
+         * TRUNCATE `acos`;
+          TRUNCATE `aros`;
+          TRUNCATE `aros_acos`;
+          TRUNCATE `groups`;
+          TRUNCATE `group_permissions`;
+          TRUNCATE `members`;
+         */
         if ($this->Member->hasAny(array('user_status' => 'Y'))) {
-            $this->Session->setFlash(__('There are members in database. If you want to reset, please remove them first.', true));
+            $this->Session->setFlash('帳號已經存在，如果希望重設，請先清空會員資料庫');
             $this->redirect('/members/login');
         } elseif (!empty($this->request->data)) {
             $this->loadModel('Group');
-            $this->request->data['Group']['name'] = 'Admin';
-            $this->request->data['Group']['parent_id'] = 0;
             $this->Group->create();
-            if ($this->Group->save($this->request->data)) {
-                $this->request->data['Member']['group_id'] = $this->Group->id;
+            if ($this->Group->save(array('Group' => array(
+                            'id' => 1,
+                            'name' => 'Admin',
+                            'parent_id' => 0,
+                )))) {
+                $this->Group->create();
+                $this->Group->save(array('Group' => array(
+                        'id' => 2,
+                        'name' => 'Editor',
+                        'parent_id' => 0,
+                )));
+                $this->request->data['Member']['id'] = 1;
+                $this->request->data['Member']['group_id'] = 1;
                 $this->request->data['Member']['user_status'] = 'Y';
                 $this->Member->create();
                 if ($this->Member->save($this->request->data)) {
@@ -57,16 +76,17 @@ class MembersController extends AppController {
                          */
                         $this->Acl->deny('everyone', 'app');
                         $this->Acl->allow('Group1', 'app');
+                        $this->Acl->allow('Group2', 'Issues');
                     }
                     $this->Acl->Aco->recover();
                     $this->Acl->Aro->recover();
-                    $this->Session->setFlash(__('The administrator created, please login with the id/password you entered.', true));
+                    $this->Session->setFlash('管理者帳號已經建立，請登入繼續操作');
                     $this->redirect('/members/login');
                 } else {
-                    $this->Session->setFlash(__('Administrator created failed.', true));
+                    $this->Session->setFlash('管理者帳號建立失敗');
                 }
             } else {
-                $this->Session->setFlash(__('Administrator created failed.', true));
+                $this->Session->setFlash('管理者帳號建立失敗');
             }
         }
     }

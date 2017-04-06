@@ -12,29 +12,31 @@
             'class' => 'form-control',
             'required' => 'required',
         ));
-        echo $this->Form->input('Issue.info_source', array(
-            'type' => 'radio',
-            'options' => array(
-                '醫院藥師' => '醫院藥師',
-                '社區藥局藥師' => '社區藥局藥師',
-                '診所藥師' => '診所藥師',
-                '藥商' => '藥商',
-                '公學協會' => '公學協會',
-                '其他' => '其他',
-            ),
-            'legend' => '編輯者',
-            'div' => 'form-group',
-        ));
-        echo $this->Form->input('Issue.status', array(
-            'type' => 'radio',
-            'options' => array(
-                '變更(未確認)' => '變更(未確認)',
-                '變更(已確認)' => '變更(已確認)',
-                '疑義' => '疑義',
-            ),
-            'legend' => '分類',
-            'div' => 'form-group',
-        ));
+        if (Configure::read('loginMember.group_id') == 1) {
+            echo $this->Form->input('Issue.info_source', array(
+                'type' => 'radio',
+                'options' => array(
+                    '醫院藥師' => '醫院藥師',
+                    '社區藥局藥師' => '社區藥局藥師',
+                    '診所藥師' => '診所藥師',
+                    '藥商' => '藥商',
+                    '公學協會' => '公學協會',
+                    '其他' => '其他',
+                ),
+                'legend' => '編輯者',
+                'div' => 'form-group',
+            ));
+            echo $this->Form->input('Issue.status', array(
+                'type' => 'radio',
+                'options' => array(
+                    '變更(未確認)' => '變更(未確認)',
+                    '變更(已確認)' => '變更(已確認)',
+                    '疑義' => '疑義',
+                ),
+                'legend' => '分類',
+                'div' => 'form-group',
+            ));
+        }
         echo $this->Form->input('Issue.name_chinese', array(
             'label' => '藥品中文名',
             'div' => 'form-group',
@@ -112,7 +114,7 @@
             minLength: 1,
             source: function (request, response) {
                 $.getJSON('http://drugs.olc.tw/api/drugs/index/' + encodeURI(request.term), function (r) {
-                    response($.map(r.data, function(item) {
+                    response($.map(r.data, function (item) {
                         return {
                             label: item.License.license_id + ' - ' + item.License.name + ' / ' + item.License.name_english,
                             value: item.License.license_id,
@@ -121,7 +123,7 @@
                     }));
                 });
             },
-            select: function(event, ui) {
+            select: function (event, ui) {
                 $('#IssueNameEnglish').val(ui.item.data.License.name_english);
                 $('#IssueNameChinese').val(ui.item.data.License.name);
                 $('#IssueLicenseUuid').val(ui.item.data.License.id);

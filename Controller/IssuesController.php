@@ -52,6 +52,11 @@ class IssuesController extends AppController {
     function admin_view($id = null) {
         if (!empty($this->data)) {
             $theData = $this->data;
+            if (Configure::read('loginMember.group_id') != 1) {
+                $theData['IssueLog']['status'] = $this->Issue->field('status', array(
+                    'Issue.id' => $id,
+                ));
+            }
             $theData['IssueLog']['issue_id'] = $id;
             $theData['IssueLog']['created_by'] = Configure::read('loginMember.id');
             $this->Issue->IssueLog->create();
@@ -81,8 +86,13 @@ class IssuesController extends AppController {
 
     function admin_add() {
         if (!empty($this->data)) {
+            $toSave = $this->data;
+            if ($this->Session->read('Auth.User.group_id') != 1) {
+                $toSave['Issue']['status'] = '變更(未確認)';
+                $toSave['Issue']['info_source'] = $this->Session->read('Auth.User.role');
+            }
             $this->Issue->create();
-            if ($this->Issue->save($this->data)) {
+            if ($this->Issue->save($toSave)) {
                 $this->Session->setFlash(__('The data has been saved', true));
                 $this->redirect(array('action' => 'index'));
             } else {

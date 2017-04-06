@@ -97,17 +97,19 @@
         <?php echo $this->Form->create('IssueLog', array('url' => '/admin/issues/view/' . $this->data['Issue']['id'])); ?>
         <div class="IssueLogs form">
             <?php
-            echo $this->Form->input('IssueLog.status', array(
-                'type' => 'radio',
-                'options' => array(
-                    '變更(未確認)' => '變更(未確認)',
-                    '變更(已確認)' => '變更(已確認)',
-                    '疑義' => '疑義',
-                ),
-                'value' => $this->data['Issue']['status'],
-                'legend' => '分類',
-                'div' => 'form-group',
-            ));
+            if (Configure::read('loginMember.group_id') == 1) {
+                echo $this->Form->input('IssueLog.status', array(
+                    'type' => 'radio',
+                    'options' => array(
+                        '變更(未確認)' => '變更(未確認)',
+                        '變更(已確認)' => '變更(已確認)',
+                        '疑義' => '疑義',
+                    ),
+                    'value' => $this->data['Issue']['status'],
+                    'legend' => '分類',
+                    'div' => 'form-group',
+                ));
+            }
             echo $this->Form->input('IssueLog.comment', array(
                 'label' => '意見',
                 'div' => 'form-group',
@@ -141,7 +143,7 @@
                     <td><?php echo $log['Member']['username']; ?></td>
                     <td><?php echo nl2br($log['comment']); ?></td>
                 </tr><?php
-        }
+            }
             ?>
         </tbody>
     </table>

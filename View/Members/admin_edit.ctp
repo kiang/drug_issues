@@ -1,7 +1,7 @@
 <div class="members form">
     <?php echo $this->Form->create('Member'); ?>
     <fieldset>
-        <legend><?php echo __('Edit Member', true); ?></legend>
+        <legend>編輯帳號</legend>
         <?php
         echo $this->Form->input('id');
         echo $this->Form->input('Member.username', array(

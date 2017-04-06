@@ -1,7 +1,7 @@
 <div class="members form">
     <?php echo $this->Form->create('Member'); ?>
     <fieldset>
-        <legend><?php echo __('New Member', true); ?></legend>
+        <legend>新增帳號</legend>
         <?php
         echo $this->Form->input('Member.username', array(
             'type' => 'text',
@@ -22,7 +22,7 @@
             'div' => 'form-group',
             'class' => 'form-control',
         ));
-        echo $this->Form->input('Member.nick', array(
+        echo $this->Form->input('Member.nickname', array(
             'type' => 'text',
             'label' => '暱稱',
             'div' => 'form-group',

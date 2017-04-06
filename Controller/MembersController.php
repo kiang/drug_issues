@@ -89,6 +89,8 @@ class MembersController extends AppController {
         if (!empty($keyword)) {
             $scope['OR'] = array(
                 'Member.username LIKE' => '%' . $keyword . '%',
+                'Member.nickname LIKE' => '%' . $keyword . '%',
+                'Member.email LIKE' => '%' . $keyword . '%',
                 'Group.name LIKE' => '%' . $keyword . '%',
             );
         }

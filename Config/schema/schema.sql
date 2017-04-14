@@ -133,6 +133,7 @@ DROP TABLE IF EXISTS `issues`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `issues` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `is_active` tinyint(1) DEFAULT 1,
   `license_uuid` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `info_source` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,

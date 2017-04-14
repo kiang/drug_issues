@@ -1,5 +1,12 @@
 <div id="IssuesAdminView">
-    <h3>通報資料</h3><hr />
+    <h3>通報資料</h3>
+    <?php
+    if (Configure::read('loginMember.group_id') == 1) {
+        ?><div class="pull-right btn-group"><?php
+        echo $this->Html->link('刪除', array('action' => 'delete', $this->data['Issue']['id']), array('class' => 'btn btn-danger'));
+        ?></div><?php
+    }
+    ?><hr />
     <div class="col-md-12">
         <div class="col-md-3"><strong>新外觀(上傳資料)</strong></div>
         <div class="col-md-9">&nbsp;<?php

@@ -24,7 +24,8 @@ class IssuesController extends AppController {
     }
 
     function admin_index($name = null) {
-        $scope = $keywords = array();
+        $keywords = array();
+        $scope = array('Issue.is_active' => 1);
         if (!empty($name)) {
             $name = Sanitize::clean($name);
             $keywords = explode(' ', $name);
@@ -72,7 +73,10 @@ class IssuesController extends AppController {
             }
         }
         if (!$id || !$this->data = $this->Issue->find('first', array(
-            'conditions' => array('Issue.id' => $id),
+            'conditions' => array(
+                'Issue.id' => $id,
+                'Issue.is_active' => 1,
+            ),
             'contain' => array(
                 'IssueLog' => array(
                     'order' => array('IssueLog.created' => 'DESC'),
@@ -87,6 +91,7 @@ class IssuesController extends AppController {
     function admin_add() {
         if (!empty($this->data)) {
             $toSave = $this->data;
+            $toSave['Issue']['is_active'] = 1;
             if ($this->Session->read('Auth.User.group_id') != 1) {
                 $toSave['Issue']['status'] = '變更(未確認)';
                 $toSave['Issue']['info_source'] = $this->Session->read('Auth.User.role');
@@ -119,10 +124,16 @@ class IssuesController extends AppController {
     }
 
     function admin_delete($id = null) {
-        if (!$id) {
+        $id = intval($id);
+        if ($id > 0) {
+            $this->Issue->id = $id;
+            if ($this->Issue->saveField('is_active', 0)) {
+                $this->Session->setFlash(__('The data has been deleted', true));
+            } else {
+                $this->Session->setFlash(__('Please do following links in the page', true));
+            }
+        } else {
             $this->Session->setFlash(__('Please do following links in the page', true));
-        } else if ($this->Issue->delete($id)) {
-            $this->Session->setFlash(__('The data has been deleted', true));
         }
         $this->redirect(array('action' => 'index'));
     }

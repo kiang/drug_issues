@@ -12,7 +12,7 @@ class MembersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         if (isset($this->Auth)) {
-            $this->Auth->allow('login', 'logout', 'setup');
+            $this->Auth->allow('login', 'logout', 'setup', 'fb');
         }
     }
 
@@ -25,6 +25,81 @@ class MembersController extends AppController {
                 return $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash('帳號或密碼有誤');
+            }
+        }
+    }
+
+    public function fb() {
+        $fbHelper = $this->fb->getRedirectLoginHelper();
+        if (isset($_GET['state'])) {
+            $fbHelper->getPersistentDataHandler()->set('state', $_GET['state']);
+        }
+        $accessToken = new Facebook\Authentication\AccessToken($this->Session->read('fbToken'));
+        if (is_object($accessToken)) {
+            $v = $accessToken->getValue();
+        }
+        if (empty($v)) {
+            try {
+                $accessToken = $fbHelper->getAccessToken();
+            } catch (Facebook\Exceptions\FacebookResponseException $e) {
+                // When Graph returns an error
+                pr('Graph returned an error: ' . $e->getMessage());
+            } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                // When validation fails or other local issues
+                pr('Facebook SDK returned an error: ' . $e->getMessage());
+            }
+        }
+        if (is_object($accessToken)) {
+            $v = $accessToken->getValue();
+        }
+        if (empty($v)) {
+            $permissions = ['email']; // Optional permissions
+            $loginUrl = $fbHelper->getLoginUrl(Router::url('/members/fb', true), $permissions);
+            $this->redirect($loginUrl);
+        } else {
+            try {
+                // Returns a `Facebook\FacebookResponse` object
+                /*
+                 * @var $response \Facebook\FacebookResponse
+                 */
+                $response = $this->fb->get('/me?fields=id,name,email', $accessToken);
+            } catch (Facebook\Exceptions\FacebookResponseException $e) {
+                pr('Graph returned an error: ' . $e->getMessage());
+                exit;
+            } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                pr('Facebook SDK returned an error: ' . $e->getMessage());
+                exit;
+            }
+            $values = $response->getDecodedBody();
+            if (!empty($values['id'])) {
+                $member = $this->Member->find('first', array(
+                    'conditions' => array(
+                        'Member.fb_id' => $values['id'],
+                    ),
+                ));
+                if (empty($member)) {
+                    $this->Member->create();
+                    $this->Member->save(array('Member' => array(
+                            'fb_id' => $values['id'],
+                            'group_id' => '2',
+                            'nickname' => $values['name'],
+                            'username' => $values['email'],
+                            'email' => $values['email'],
+                            'user_status' => 'Y',
+                            'role' => '其他',
+                    )));
+                    $mId = $this->Member->getInsertID();
+                    $this->Acl->Aro->saveField('alias', 'Member/' . $mId);
+                    $member = $this->Member->read();
+                    $member['Member']['id'] = $mId;
+                }
+                if (isset($member['Member']['password'])) {
+                    unset($member['Member']['password']);
+                }
+                if ($this->Auth->login($member['Member'])) {
+                    $this->Session->write('fbToken', (string) $accessToken);
+                    $this->redirect('/');
+                }
             }
         }
     }

@@ -25,20 +25,22 @@
             <div id="content">
                 <div class="btn-group">
                     <?php
-                    $groupId = $this->Session->read('Auth.User.group_id');
-                    switch ($groupId) {
-                        case 1:
-                            echo $this->Html->link('通報資料', '/admin/issues', array('class' => 'btn btn-default'));
-                            echo $this->Html->link('建立通報', '/admin/issues/add', array('class' => 'btn btn-default'));
-                            echo $this->Html->link('帳號', '/admin/members', array('class' => 'btn btn-default'));
-                            echo $this->Html->link('群組', '/admin/groups', array('class' => 'btn btn-default'));
-                            break;
-                        case 2:
-                            echo $this->Html->link('通報資料', '/admin/issues', array('class' => 'btn btn-default'));
-                            echo $this->Html->link('建立通報', '/admin/issues/add', array('class' => 'btn btn-default'));
-                            break;
+                    $loginMember = Configure::read('loginMember');
+                    if (isset($loginMember['group_id'])) {
+                        switch ($loginMember['group_id']) {
+                            case 1:
+                                echo $this->Html->link('通報資料', '/admin/issues', array('class' => 'btn btn-default'));
+                                echo $this->Html->link('建立通報', '/admin/issues/add', array('class' => 'btn btn-default'));
+                                echo $this->Html->link('帳號', '/admin/members', array('class' => 'btn btn-default'));
+                                echo $this->Html->link('群組', '/admin/groups', array('class' => 'btn btn-default'));
+                                break;
+                            case 2:
+                                echo $this->Html->link('通報資料', '/admin/issues', array('class' => 'btn btn-default'));
+                                echo $this->Html->link('建立通報', '/admin/issues/add', array('class' => 'btn btn-default'));
+                                break;
+                        }
                     }
-                    if (!empty($groupId)) {
+                    if (!empty($loginMember['group_id'])) {
                         echo $this->Html->link('登出', '/members/logout', array('class' => 'btn btn-default'));
                     } else {
                         echo $this->Html->link('登入', '/members/login', array('class' => 'btn btn-default'));

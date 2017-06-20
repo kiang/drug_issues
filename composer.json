@@ -1,0 +1,9 @@
+{
+    "require": {
+	"cakephp/cakephp": "2.9.*",
+        "facebook/graph-sdk": "^5.5"
+    },
+    "config": {
+	"vendor-dir": "Vendor/"
+    }
+}

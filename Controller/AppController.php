@@ -36,13 +36,12 @@ class AppController extends Controller {
         }
         Configure::write('loginMember', $this->loginMember);
         $token = $this->Session->read('fbToken');
+        $options = Configure::read('Facebook');
+        if(!empty($token)) {
+            $options['default_access_token'] = $token;
+        }
 
-        $this->fb = new \Facebook\Facebook([
-            'app_id' => '118871668629982',
-            'app_secret' => '15214b1fdc4735a0116a9d6b91af94a0',
-            'default_graph_version' => 'v2.9',
-            'default_access_token' => $token, // optional
-        ]);
+        $this->fb = new \Facebook\Facebook($options);
         $this->set('fbHelper', $this->fb->getRedirectLoginHelper());
 
     }

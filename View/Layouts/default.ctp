@@ -57,18 +57,15 @@
                 <div id="viewContent"><?php echo $content_for_layout; ?></div>
             </div>
             <div id="footer">
-                <?php
-                echo $this->Html->link(
-                        $this->Html->image('cake.power.gif', array(
-                            'alt' => __("CakePHP: the rapid development php framework", true), 'border' => "0")
-                        ), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false)
-                );
-                ?>
-                & <?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
+                ---<br />
+                <?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
+                & <?php echo $this->Html->link('台灣年輕藥師協會', 'http://typg.org.tw/', array('target' => '_blank')); ?>
             </div>
         </div>
         <?php
-        echo $this->element('sql_dump');
+        if($loginMember['group_id'] == 1) {
+            echo $this->element('sql_dump');
+        }
         ?>
     </body>
 </html>

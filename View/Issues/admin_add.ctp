@@ -7,7 +7,7 @@
         echo $this->Form->hidden('Issue.license_uuid');
         echo $this->Form->input('Issue.license', array(
             'type' => 'text',
-            'label' => '許可證字號',
+            'label' => '* 許可證字號 (必填)',
             'div' => 'form-group',
             'class' => 'form-control',
             'required' => 'required',
@@ -37,7 +37,20 @@
             ));
         }
         echo $this->Form->input('Issue.name_chinese', array(
-            'label' => '藥品中文名',
+            'label' => '* 藥品中文名 (必填)',
+            'div' => 'form-group',
+            'class' => 'form-control',
+            'required' => 'required',
+        ));
+        echo $this->Form->input('Issue.batch_no', array(
+            'label' => '* 批號（新變更的批號） (必填)',
+            'div' => 'form-group',
+            'class' => 'form-control',
+            'required' => 'required',
+        ));
+        echo $this->Form->input('Issue.pic_new', array(
+            'type' => 'file',
+            'label' => '* 新外觀(上傳) (必填)',
             'div' => 'form-group',
             'class' => 'form-control',
             'required' => 'required',
@@ -47,22 +60,9 @@
             'div' => 'form-group',
             'class' => 'form-control',
         ));
-        echo $this->Form->input('Issue.batch_no', array(
-            'label' => '批號（新變更的批號）',
-            'div' => 'form-group',
-            'class' => 'form-control',
-            'required' => 'required',
-        ));
-        echo $this->Form->input('Issue.pic_new', array(
-            'type' => 'file',
-            'label' => '新外觀(上傳資料)',
-            'div' => 'form-group',
-            'class' => 'form-control',
-            'required' => 'required',
-        ));
         echo $this->Form->input('Issue.pic_old', array(
             'type' => 'file',
-            'label' => '舊外觀(上傳資料)',
+            'label' => '舊外觀(上傳)',
             'div' => 'form-group',
             'class' => 'form-control',
         ));

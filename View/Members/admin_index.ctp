@@ -16,8 +16,8 @@
         <tr>
             <th><?php echo $this->Paginator->sort('username', '帳號'); ?></th>
             <th><?php echo $this->Paginator->sort('email', '信箱'); ?></th>
-            <th><?php echo $this->Paginator->sort('nickname', '暱稱'); ?></th>
-            <th><?php echo $this->Paginator->sort('user_status', '狀態'); ?></th>
+            <th>暱稱</th>
+            <th>狀態</th>
             <th><?php echo $this->Paginator->sort('modified', '異動時間'); ?></th>
             <th class="actions">操作</th>
         </tr>
@@ -30,7 +30,12 @@
             }
             ?>
             <tr<?php echo $class; ?>>
-                <td><?php echo $member['Member']['username']; ?></td>
+                <td><?php
+                    echo $member['Member']['username'];
+                    if (!empty($member['Member']['fb_id'])) {
+                        echo $this->Html->link(' (臉書)', 'https://www.facebook.com/' . $member['Member']['fb_id'], array('target' => '_blank'));
+                    }
+                    ?></td>
                 <td><?php echo $member['Member']['email']; ?></td>
                 <td><?php echo $member['Member']['nickname']; ?></td>
                 <td><?php echo $member['Member']['user_status']; ?></td>

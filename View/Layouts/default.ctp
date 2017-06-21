@@ -58,8 +58,9 @@
             </div>
             <div id="footer">
                 ---<br />
-                <?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
+                powered by <?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
                 & <?php echo $this->Html->link('台灣年輕藥師協會', 'http://typg.org.tw/', array('target' => '_blank')); ?>
+                <br /><small>本網站資料僅供參考，不宜使用在疾病判斷及治療。<br>本網站不承擔任何責任或保證、也不表明任何立場或保證內容的準確性，任何疑問請洽詢專業醫事機構。</small>
             </div>
         </div>
         <?php

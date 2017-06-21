@@ -89,7 +89,7 @@ class MembersController extends AppController {
                             'role' => '其他',
                     )));
                     $mId = $this->Member->getInsertID();
-                    $this->Acl->Aro->saveField('alias', 'Member/' . $mId);
+                    $this->Acl->Aro->saveField('alias', 'Member' . $mId);
                     $member = $this->Member->read();
                     $member['Member']['id'] = $mId;
                 }
@@ -125,6 +125,12 @@ class MembersController extends AppController {
             $this->redirect('/members/login');
         } elseif (!empty($this->request->data)) {
             $this->loadModel('Group');
+            $this->Group->query("TRUNCATE `acos`;");
+            $this->Group->query("TRUNCATE `aros`;");
+            $this->Group->query("TRUNCATE `aros_acos`;");
+            $this->Group->query("TRUNCATE `groups`;");
+            $this->Group->query("TRUNCATE `group_permissions`;");
+            $this->Group->query("TRUNCATE `members`;");
             $this->Group->create();
             if ($this->Group->save(array('Group' => array(
                             'id' => 1,
@@ -210,7 +216,7 @@ class MembersController extends AppController {
         if (!empty($this->request->data)) {
             $this->Member->create();
             if ($this->Member->save($this->request->data)) {
-                $this->Acl->Aro->saveField('alias', 'Member/' . $this->Member->getInsertID());
+                $this->Acl->Aro->saveField('alias', 'Member' . $this->Member->getInsertID());
                 $this->Session->setFlash(__('The data has been saved', true));
                 $this->redirect(array('action' => 'index'));
             } else {

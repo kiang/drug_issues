@@ -125,7 +125,7 @@ class PermissibleAco extends PermissibleAppModel {
      * @return array Results
      * @access public
      */
-    public function afterFind($results, $primary) {
+    public function afterFind($results, $primary = false) {
         foreach ($results as $key => $result) {
             if (!isset($result[$this->alias]['alias']) && isset($result[$this->alias]['model'])) {
                 $model = ClassRegistry::init($result[$this->alias]['model']);

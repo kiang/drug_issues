@@ -1,7 +1,7 @@
 <div id="IssuesAdminView">
     <h3>通報資料</h3>
     <?php
-    if (Configure::read('loginMember.group_id') == 1) {
+    if (Configure::read('loginMember.group_id') == 1 || ($this->data['Issue']['created_by'] == $this->data['Issue']['modified_by'] && Configure::read('loginMember.id') == $this->data['Issue']['created_by'])) {
         ?><div class="pull-right btn-group"><?php
         echo $this->Html->link('刪除', array('action' => 'delete', $this->data['Issue']['id']), array('class' => 'btn btn-danger'));
         ?></div><?php

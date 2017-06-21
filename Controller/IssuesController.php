@@ -126,11 +126,24 @@ class IssuesController extends AppController {
     function admin_delete($id = null) {
         $id = intval($id);
         if ($id > 0) {
-            $this->Issue->id = $id;
-            if ($this->Issue->saveField('is_active', 0)) {
-                $this->Session->setFlash(__('The data has been deleted', true));
-            } else {
-                $this->Session->setFlash(__('Please do following links in the page', true));
+            if ($this->loginMember['group_id'] != 1) {
+                $issue = $this->Issue->read(array('created_by', 'modified_by'), $id);
+                /*
+                 * the user is not admin
+                 * check if the user is created_by and the issue didn't have different modified_by
+                 */
+                if ($issue['Issue']['created_by'] != $this->loginMember['id'] || $issue['Issue']['created_by'] != $issue['Issue']['modified_by']) {
+                    $id = 0;
+                    $this->Session->setFlash(__('Please do following links in the page', true));
+                }
+            }
+            if ($id > 0) {
+                $this->Issue->id = $id;
+                if ($this->Issue->saveField('is_active', 0)) {
+                    $this->Session->setFlash(__('The data has been deleted', true));
+                } else {
+                    $this->Session->setFlash(__('Please do following links in the page', true));
+                }
             }
         } else {
             $this->Session->setFlash(__('Please do following links in the page', true));

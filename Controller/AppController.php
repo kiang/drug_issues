@@ -6,7 +6,7 @@ class AppController extends Controller {
 
     public $helpers = array('Html', 'Form', 'Js', 'Session', 'Olc');
     public $components = array('Acl', 'Auth', 'RequestHandler', 'Session');
-    public $fb;
+    public $fb, $loginMember;
 
     public function beforeFilter() {
         if (isset($this->Auth)) {

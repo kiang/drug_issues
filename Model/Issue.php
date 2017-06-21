@@ -77,6 +77,9 @@ class Issue extends AppModel {
             }
         }
         $this->data['Issue']['modified_by'] = Configure::read('loginMember.id');
+        if(empty($this->id)) {
+            $this->data['Issue']['created_by'] = $this->data['Issue']['modified_by'];
+        }
         return parent::beforeSave($options);
     }
 

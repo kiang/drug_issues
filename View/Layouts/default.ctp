@@ -41,6 +41,7 @@
                         }
                     }
                     if (!empty($loginMember['group_id'])) {
+                        echo $this->Html->link('編輯帳號', '/members/edit', array('class' => 'btn btn-default'));
                         echo $this->Html->link('登出', '/members/logout', array('class' => 'btn btn-default'));
                     } else {
                         echo $this->Html->link('登入', '/members/login', array('class' => 'btn btn-default'));

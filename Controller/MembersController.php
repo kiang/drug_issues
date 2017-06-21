@@ -12,7 +12,7 @@ class MembersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         if (isset($this->Auth)) {
-            $this->Auth->allow('login', 'logout', 'setup', 'fb');
+            $this->Auth->allow('login', 'logout', 'setup', 'fb', 'edit');
         }
     }
 
@@ -169,6 +169,25 @@ class MembersController extends AppController {
             } else {
                 $this->Session->setFlash('管理者帳號建立失敗');
             }
+        }
+    }
+    
+    public function edit() {
+        if (!empty($this->request->data)) {
+            $this->request->data['Member']['id'] = $this->loginMember['id'];
+            $this->request->data['Member']['group_id'] = $this->loginMember['group_id'];
+            $this->request->data['Member']['user_status'] = $this->loginMember['user_status'];
+            if ($this->Member->save($this->request->data)) {
+                $this->Session->setFlash(__('The data has been saved', true));
+            } else {
+                $this->Session->setFlash(__('Something was wrong during saving, please try again', true));
+            }
+        }
+        if (empty($this->request->data)) {
+            $this->request->data = $this->Member->read(null, $this->loginMember['id']);
+        }
+        if(isset($this->request->data['Member']['password'])) {
+            $this->request->data['Member']['password'] = '';
         }
     }
 

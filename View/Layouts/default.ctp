@@ -59,9 +59,10 @@
             </div>
             <div id="footer">
                 ---<br />
-                powered by <?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
-                & <?php echo $this->Html->link('台灣年輕藥師協會', 'http://typg.org.tw/', array('target' => '_blank')); ?>
-                <br /><small>本網站資料僅供參考，不宜使用在疾病判斷及治療。<br>本網站不承擔任何責任或保證、也不表明任何立場或保證內容的準確性，任何疑問請洽詢專業醫事機構。</small>
+                本網站係為<?php echo $this->Html->link('藥要看', 'http://drugs.olc.tw/', array('target' => '_blank')); ?>
+                及<?php echo $this->Html->link('台灣年輕藥師協會', 'http://typg.org.tw/', array('target' => '_blank')); ?>共同協作之平台，
+                僅供藥師作為外觀疑義之交流與參考，並非原藥品許可證持有者及食品藥物管理署之公開資料。<br />
+                本網站資料僅供交流參考，一切資訊以食品藥物管理署或各藥品許可證持有者公告為準；本網站恕不負資訊正確之一切法律責任。
             </div>
         </div>
         <?php

@@ -112,7 +112,7 @@
         $('#IssueLicense').autocomplete({
             minLength: 1,
             source: function (request, response) {
-                $.getJSON('http://drugs.olc.tw/api/drugs/index/' + encodeURI(request.term), function (r) {
+                $.getJSON('https://drugs.olc.tw/api/drugs/index/' + encodeURI(request.term), function (r) {
                     response($.map(r.data, function (item) {
                         return {
                             label: item.License.license_id + ' - ' + item.License.name + ' / ' + item.License.name_english,

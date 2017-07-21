@@ -92,11 +92,13 @@
             echo $this->data['Issue']['modified'];
             ?>&nbsp;
         </div>
+<?php if(Configure::read('loginMember.group_id') == 1) { ?>
         <div class="col-md-3"><strong>更新者</strong></div>
         <div class="col-md-9">&nbsp;<?php
             echo $this->data['Member']['username'];
             ?>&nbsp;
         </div>
+<?php } ?>
     </div>
     <p>&nbsp;</p>
     <div id="IssueLogsAdminAdd">
@@ -136,7 +138,9 @@
             <tr>
                 <th>時間</th>
                 <th>分類</th>
+                <?php if(Configure::read('loginMember.group_id') == 1) { ?>
                 <th>操作人</th>
+                <?php } ?>
                 <th>備註/說明</th>
             </tr>
         </thead>
@@ -146,7 +150,9 @@
                 ?><tr>
                     <td><?php echo $log['created']; ?></td>
                     <td><?php echo $log['status']; ?></td>
+                    <?php if(Configure::read('loginMember.group_id') == 1) { ?>
                     <td><?php echo $log['Member']['username']; ?></td>
+                    <?php } ?>
                     <td><?php echo nl2br($log['comment']); ?></td>
                 </tr><?php
             }

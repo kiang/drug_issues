@@ -12,6 +12,7 @@
             'class' => 'form-control',
             'required' => 'required',
         ));
+        echo '提醒： 打中間6碼或是中文名稱，點選後其他欄位會自動帶入<hr />';
         if (Configure::read('loginMember.group_id') == 1) {
             echo $this->Form->input('Issue.info_source', array(
                 'type' => 'radio',

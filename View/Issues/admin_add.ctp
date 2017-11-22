@@ -98,6 +98,8 @@
         ));
         ?>
     </div>
+    <hr />
+    * 點選送出表示您同意本次上傳的資料與圖片採用 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW" target="_blank">CC BY 4.0</a> 授權方式提供給本站使用
     <?php
     /*
      * @var Form FormHelper
